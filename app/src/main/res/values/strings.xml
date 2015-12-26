@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Destiny Medals</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_cached">Cached</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_receive">Receive</string>
+    <string name="gtag">Enter a Gamertag</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_settings_class">Settings</string>
+</resources>
