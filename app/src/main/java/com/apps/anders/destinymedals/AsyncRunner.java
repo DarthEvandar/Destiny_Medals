@@ -193,12 +193,12 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
             }
             n.close();
         }*/
-        gett();
-        //addall();
+        //Parse medal file and populate arrays
+        new ParseMedalData(aa,"master");
     }
 
-    //Format raw data
-    public void gett()throws IOException{
+    //Deprecated parse code
+    /*public void gett()throws IOException{
         //Red
         ArrayList<String> color_red = new ArrayList<String>();
         color_red.add("Automatic");
@@ -323,7 +323,8 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
             BufferedReader read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath() + "/" + gamertag + "Medals.txt"));
             String line = read.readLine();
             while (line != null) {
-                if (colors.get(i).contains(line)) {
+                if (colors.get(i).contains(line.split(":")[0])) {
+                    System.out.println("good");
                     String tempo;
                     tempo = line.split(":")[0];
                     tempo = tempo.replaceAll(" ", "_");
@@ -334,15 +335,15 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
                     tempo = tempo.replaceAll("\'", "");
                     System.out.println(tempo);
                     values.add(line.split(":")[1]);
-                    //System.out.println(line.split(":")[0].toLowerCase()/*.replaceAll(" ","_").replaceAll("!","").replaceAll(".","").replaceAll("-","_").replaceAll("'","")*/);
+                    //System.out.println(line.split(":")[0].toLowerCase()*//*.replaceAll(" ","_").replaceAll("!","").replaceAll(".","").replaceAll("-","_").replaceAll("'","")*//*);
                     medals.add(tempo);
                 }
                 line = read.readLine();
             }
             read.close();
         }
-    }
-    //create local databases of medal info
+    }*/
+    //Create local databases of medal info
     /*public void addall() throws IOException{
         FileWriter descWriter= new FileWriter(Environment.getExternalStorageDirectory().getPath()+"/Descriptions.txt");
         PrintWriter de = new PrintWriter(new BufferedWriter(descWriter));

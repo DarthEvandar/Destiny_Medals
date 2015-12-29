@@ -33,11 +33,14 @@ public class CachedRunner extends AsyncTask<String,String,String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            load();
-        }catch(IOException e){}
+            new ParseMedalData(cRunContext,"cached");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
-    public void load() throws IOException {
+    //Deprecated parse code
+    /*public void load() throws IOException {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cRunContext);
         String gamertag = settings.getString("Gamertag","");
         BufferedReader read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath()+"/"+gamertag+"Cached.txt"));
@@ -53,12 +56,12 @@ public class CachedRunner extends AsyncTask<String,String,String> {
             tempo = tempo.replaceAll("\'","");
             System.out.println(tempo);
             cValues.add(line.split(":")[1]);
-            //System.out.println(line.split(":")[0].toLowerCase()/*.replaceAll(" ","_").replaceAll("!","").replaceAll(".","").replaceAll("-","_").replaceAll("'","")*/);
+            //System.out.println(line.split(":")[0].toLowerCase()*//*.replaceAll(" ","_").replaceAll("!","").replaceAll(".","").replaceAll("-","_").replaceAll("'","")*//*);
             cMedals.add(tempo);
             line  = read.readLine();
         }
         read.close();
-    }
+    }*/
     @Override
     protected void onPostExecute(String result) {
         delegate.processFinish();
