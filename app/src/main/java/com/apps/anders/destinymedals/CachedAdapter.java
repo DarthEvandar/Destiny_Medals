@@ -10,18 +10,18 @@ import java.util.ArrayList;
 
 public class CachedAdapter extends BaseAdapter {
     private Context mContext;
-    //public Integer[] picIds;
+    //Clean up
     CachedRunner cache = new CachedRunner();
     ArrayList<String> medals = cache.getMedals();
     ArrayList<String> values = cache.getValues();
-
-    public CachedAdapter(Context c/*,Integer[]ids*/) {
-        //picIds=ids;
+    int s = 0;
+    public CachedAdapter(Context c,int size) {
         mContext = c;
+        s = size;
     }
 
     public int getCount() {
-        return 102;
+        return s;
     }
 
     public Object getItem(int position) {

@@ -61,7 +61,7 @@ public class Cached extends AppCompatActivity implements AsyncResponse{
     public void processFinish() {
 
         gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new CachedAdapter(this));
+        gridview.setAdapter(new CachedAdapter(this,CachedRunner.getMedals().size()));
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
