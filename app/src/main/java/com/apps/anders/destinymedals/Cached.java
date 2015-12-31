@@ -59,25 +59,7 @@ public class Cached extends AppCompatActivity implements AsyncResponse{
 
     @Override
     public void processFinish() {
-        final Map<String, String> names = new HashMap<String, String>();
-        final Map<String, String> descriptions = new HashMap<String, String>();
-        //CachedRunner;
-        try {
-            BufferedReader read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath() + "/Names.txt"));
-            String line = read.readLine();
-            while (line != null) {
-                names.put(line.split(":")[0],line.split(":")[1]);
-                line = read.readLine();
-            }
-        }catch(IOException e){}
-        try {
-            BufferedReader read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath() + "/Descriptions.txt"));
-            String line = read.readLine();
-            while (line != null) {
-                descriptions.put(line.split(":")[0],line.split(":")[1]);
-                line = read.readLine();
-            }
-        }catch(IOException e){}
+
         gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new CachedAdapter(this));
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,7 +67,7 @@ public class Cached extends AppCompatActivity implements AsyncResponse{
                                     int position, long id) {
                 System.out.println("Press");
                 try {
-                    myToast.setText(names.get(CachedRunner.getMedals().get(position)) + "\n" + descriptions.get(CachedRunner.getMedals().get(position)) + "\nReceived This Week: " + CachedRunner.getValues().get(position));
+                    myToast.setText(MedalDictionary.dictionary_names.get(CachedRunner.getMedals().get(position)) + "\n" + MedalDictionary.dictionary_descriptions.get(CachedRunner.getMedals().get(position)) + "\nReceived This Week: " + CachedRunner.getValues().get(position));
                 } catch (java.lang.IndexOutOfBoundsException exce) {
                     myToast.setText("Nothing New!");
                 }

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String gamertag = settings.getString("Gamertag","");
+        new MedalDictionary();
         if(gamertag.equals("")){
             Alarming al = new Alarming();
             al.setAlarm(this);

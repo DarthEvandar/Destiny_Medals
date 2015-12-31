@@ -99,31 +99,12 @@ public class Receive extends AppCompatActivity implements AsyncResponse{
         gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
         // final AsyncRunner async = new AsyncRunner();
-        final Map<String, String> names = new HashMap<String, String>();
-        final Map<String, String> descriptions = new HashMap<String, String>();
-        //CachedRunner;
-        try {
-            BufferedReader read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath() + "/Names.txt"));
-            String line = read.readLine();
-            while (line != null) {
-                names.put(line.split(":")[0],line.split(":")[1]);
-                line = read.readLine();
-            }
-        }catch(IOException e){}
-        try {
-            BufferedReader read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath() + "/Descriptions.txt"));
-            String line = read.readLine();
-            while (line != null) {
-                descriptions.put(line.split(":")[0],line.split(":")[1]);
-                line = read.readLine();
-            }
-        }catch(IOException e){}
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 System.out.println("Press");
                 try {
-                    myToast.setText(names.get(AsyncRunner.getMedals().get(position)) + "\n" + descriptions.get(AsyncRunner.getMedals().get(position)) + "\nReceived This Week: " + AsyncRunner.getValues().get(position));
+                    myToast.setText(MedalDictionary.dictionary_names.get(AsyncRunner.getMedals().get(position)) + "\n" + MedalDictionary.dictionary_descriptions.get(AsyncRunner.getMedals().get(position)) + "\nReceived This Week: " + AsyncRunner.getValues().get(position));
                 }catch(java.lang.IndexOutOfBoundsException exce){
                     myToast.setText("Nothing New!");
                 }
@@ -134,7 +115,9 @@ public class Receive extends AppCompatActivity implements AsyncResponse{
             }
         });
     }
-    public void showImage(int pos) {
+
+    //Future popup code maybe
+    /*public void showImage(int pos) {
         Dialog builder = new Dialog(this);
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.getWindow().setBackgroundDrawable(
@@ -156,5 +139,5 @@ public class Receive extends AppCompatActivity implements AsyncResponse{
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         builder.show();
-    }
+    }*/
 }
