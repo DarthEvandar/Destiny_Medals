@@ -87,7 +87,7 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
         ArrayList<Pair> old = new ArrayList<Pair>();
         ArrayList<Pair> newer = new ArrayList<Pair>();
         BufferedReader oldread = null;
-       // aa.getResources().openRawResource(R.raw.medals)
+        //Read medals to establish a baseline, needs to be moved to work with a weekly baseline
         oldread = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath()+"/"+gamertag+"Medals.txt"));
         String line = null;
         line = oldread.readLine();
@@ -165,6 +165,7 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
             //Grab medal from JSON
             String medal = ((Map)h[i]).values().toArray()[0].toString().substring(6);
             try {
+                //Value grab
                 String value = ((Map) ((Map) h[i]).values().toArray()[3]).values().toArray()[0].toString();
                 //Deprecated asset grabs from network, kept for future updates
                 /*Document doc = Jsoup.connect("http://www.destinydb.com/medals/" + medal).get();
@@ -174,12 +175,13 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
                 prettynames.add(title.split("- ")[0].trim());*/
                 out.println(realnames.get(medal) + ":" + value);
                 System.out.println("Wrote: "+realnames.get(medal) + ":" + value);
+                //Add grabbed medals to a new Pair array for later comparison
                 newer.add(new Pair(realnames.get(medal), Integer.parseInt(value)));
                 Receive.getA().incrementProgressBy(1);
             }catch(ArrayIndexOutOfBoundsException ee){}
         }
         out.close();
-        //Update old data
+        //Update old data, maybe
         /*if(old.size()>0) {
             PrintWriter n = new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getPath() + "/"+gamertag+"New.txt"));
             PrintWriter cac = new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getPath() + "/"+gamertag+"Cached.txt"));
