@@ -1,6 +1,6 @@
 package com.apps.anders.destinymedals;
 
-import android.app.PendingIntent;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
@@ -18,7 +18,6 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     public final static String E2 = "message2";
-    private PendingIntent pendingIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
         String gamertag = settings.getString("Gamertag","");
         new MedalDictionary();
         if(gamertag.equals("")){
-            Alarming al = new Alarming();
-            al.setAlarm(this);
             setContentView(R.layout.activity_main);
         }else{
             setContentView(R.layout.existing);
@@ -59,16 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AllMedals.class);
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
-        File medalFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+message+"Medals.txt");
-        File newMedalFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+message+"New.txt");
-        File cachedFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+message+"Cached.txt");
-        try {
-            medalFile.createNewFile();
-            newMedalFile.createNewFile();
-            cachedFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new GenerateFiles(message);
         intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra(E2,"new");
         startActivity(intent);
@@ -81,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void sendCached(View view){
         Intent intent = new Intent(this, Cached.class);
+        startActivity(intent);
+    }
+    public void sendWeekly(View view){
+        Intent intent = new Intent(this, WeeklyMedals.class);
         startActivity(intent);
     }
 }

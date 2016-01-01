@@ -21,11 +21,7 @@ import java.io.IOException;
 
 public class AllMedals extends AppCompatActivity implements AsyncResponse{
     Toast myToast;
-    /*public static ProgressDialog getA() {
-        return a;
-    }*/
     GridView gridview;
-    //static ProgressDialog a;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,35 +30,16 @@ public class AllMedals extends AppCompatActivity implements AsyncResponse{
         myToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        String newness = intent.getStringExtra(MainActivity.E2);
-
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
         if(!message.equals("")) {
             editor.putString("Gamertag", message);
             editor.commit();
         }
-        File medalFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+settings.getString("Gamertag","")+"Medals.txt");
-        File newMedalFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+settings.getString("Gamertag","")+"New.txt");
-        File cachedMedalFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+settings.getString("Gamertag","")+"Cached.txt");
-        try {
-            medalFile.createNewFile();
-            newMedalFile.createNewFile();
-            cachedMedalFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new GenerateFiles(settings.getString("Gamertag",""));
         AllMedalsRunner runner = new AllMedalsRunner(this);
         runner.delegate = this;
         runner.execute();
-        //try {
-        /*a = new ProgressDialog(this);
-        a.setTitle("Loading");
-        a.setMessage("Parsing User Data");
-        a.setProgressStyle(a.STYLE_HORIZONTAL);
-        a.setProgress(0);
-        a.setMax(102);
-        a.show();*/
     }
 
     @Override
