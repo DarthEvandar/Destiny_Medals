@@ -91,63 +91,17 @@ public class AllMedalsRunner extends AsyncTask<String, String, String> {
             System.out.println(a.medal+" "+a.number);
         }
         oldread.close();
-
-
-        //Connection stuff
-       Gson gson = new Gson();
-        JsonParser jp = new JsonParser();
-        String idURL = "http://www.bungie.net/Platform/Destiny/SearchDestinyPlayer/1/"+gamertag;
-        URL url1;
-        url1 = new URL(idURL);
-        HttpURLConnection request1 = null;
-        request1 = (HttpURLConnection) url1.openConnection();
-        request1.setRequestProperty("X-API-Key", "3e45c013467c4de69b4225328ada2ade");
-        request1.connect();
-
-        JsonElement root1 = null;
-        root1 = jp.parse(new InputStreamReader((InputStream) request1.getContent()));
-        String json1 = gson.toJson(root1);
-        System.out.println(json1);
-        JSONParser parser1 = new JSONParser();
-        String obj1 = (((Map)((List)((Map)(parser1.parse(json1))).values().toArray()[1]).get(0))).values().toArray()[0].toString().trim();
-        System.out.println(obj1);
-        //API Key
-        //3e45c013467c4de69b4225328ada2ade
-        String sURL = "http://www.bungie.net/Platform/Destiny/Stats/1/"+obj1+"/0/?groups=Medals&modes=allPvP";
-        URL url;
-        url = new URL(sURL);
-        HttpURLConnection request = null;
-        request = (HttpURLConnection) url.openConnection();
-        request.setRequestProperty("X-API-Key", "3e45c013467c4de69b4225328ada2ade");
-        request.connect();
-        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-        String json = gson.toJson(root);
-        System.out.println(json);
-        JSONParser parser = new JSONParser();
-        Object obj = parser.parse(json);
-        System.out.println(obj);
-        //Ugly JSON formattting
-        Map array = (Map)obj;
-        Collection a = array.values();
-        System.out.println(a);
-        Object[] b = a.toArray();
-        Collection c = ((Map)b[1]).values();
-        Object[] d = c.toArray();
-        System.out.println(c);
-        Collection e = ((Map)d[0]).values();
-        Object[] f = e.toArray();
-        Collection g = ((Map)f[0]).values();
-        Object[] h = g.toArray();
-
+        UpdateMedals update = new UpdateMedals();
+        Object[] raw_medals = update.getUpdate(gamertag);
         //Write new data to Medals.txt
         FileWriter fileWriter= new FileWriter(Environment.getExternalStorageDirectory().getPath()+"/"+gamertag+"Medals.txt");
         PrintWriter out = new PrintWriter(new BufferedWriter(fileWriter));
-            for(int i=0;i<h.length;i++){
+            for(int i=0;i<raw_medals.length;i++){
             //Grab medal from JSON
-            String medal = ((Map)h[i]).values().toArray()[0].toString().substring(6);
+            String medal = ((Map)raw_medals[i]).values().toArray()[0].toString().substring(6);
             try {
                 //Value grab
-                String value = ((Map) ((Map) h[i]).values().toArray()[3]).values().toArray()[0].toString();
+                String value = ((Map) ((Map) raw_medals[i]).values().toArray()[3]).values().toArray()[0].toString();
                 //Deprecated asset grabs from network, kept for future updates
                 /*Document doc = Jsoup.connect("http://www.destinydb.com/medals/" + medal).get();
                 String title = doc.title();
