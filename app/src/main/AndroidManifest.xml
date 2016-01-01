@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Receive"
+            android:name=".AllMedals"
             android:label="@string/title_activity_receive" >
         </activity>
         <activity

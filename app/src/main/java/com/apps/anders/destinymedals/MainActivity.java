@@ -1,12 +1,9 @@
 package com.apps.anders.destinymedals;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,12 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
@@ -62,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void send(View view){
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        Intent intent = new Intent(this, Receive.class);
+        Intent intent = new Intent(this, AllMedals.class);
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
         File medalFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+message+"Medals.txt");
@@ -81,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void sendOld(View view){
-        Intent intent = new Intent(this, Receive.class);
+        Intent intent = new Intent(this, AllMedals.class);
         intent.putExtra(EXTRA_MESSAGE, "");
         intent.putExtra(E2,"");
         startActivity(intent);

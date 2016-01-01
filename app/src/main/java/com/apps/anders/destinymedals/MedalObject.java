@@ -3,10 +3,10 @@ package com.apps.anders.destinymedals;
 /**
  * Created by Anders on 9/13/2015.
  */
-public class Pair {
+public class MedalObject {
     int number;
     String medal;
-    public Pair(String a, int b){
+    public MedalObject(String a, int b){
         medal = a;
         number = b;
     }

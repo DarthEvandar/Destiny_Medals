@@ -257,8 +257,4 @@ public class CachedAdapter extends BaseAdapter {
         return textView;
     }
 
-    // references to our images
-
-
-
 }

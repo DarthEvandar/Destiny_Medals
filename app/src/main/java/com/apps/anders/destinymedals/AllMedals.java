@@ -1,12 +1,8 @@
 package com.apps.anders.destinymedals;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -14,25 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 
-public class Receive extends AppCompatActivity implements AsyncResponse{
+public class AllMedals extends AppCompatActivity implements AsyncResponse{
     Toast myToast;
     public static ProgressDialog getA() {
         return a;
@@ -65,7 +52,7 @@ public class Receive extends AppCompatActivity implements AsyncResponse{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        AsyncRunner runner = new AsyncRunner(this);
+        AllMedalsRunner runner = new AllMedalsRunner(this);
         runner.delegate = this;
         runner.execute();
         //try {
@@ -97,14 +84,13 @@ public class Receive extends AppCompatActivity implements AsyncResponse{
     public void processFinish() {
         a.dismiss();
         gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
-        // final AsyncRunner async = new AsyncRunner();
+        gridview.setAdapter(new AllMedalsAdapter(this));
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 System.out.println("Press");
                 try {
-                    myToast.setText(MedalDictionary.dictionary_names.get(AsyncRunner.getMedals().get(position)) + "\n" + MedalDictionary.dictionary_descriptions.get(AsyncRunner.getMedals().get(position)) + "\nReceived This Week: " + AsyncRunner.getValues().get(position));
+                    myToast.setText(MedalDictionary.dictionary_names.get(AllMedalsRunner.getMedals().get(position)) + "\n" + MedalDictionary.dictionary_descriptions.get(AllMedalsRunner.getMedals().get(position)) + "\nReceived This Week: " + AllMedalsRunner.getValues().get(position));
                 }catch(java.lang.IndexOutOfBoundsException exce){
                     myToast.setText("Nothing New!");
                 }
@@ -131,7 +117,7 @@ public class Receive extends AppCompatActivity implements AsyncResponse{
         TextView textView = new TextView(this);
         textView.setTextSize(22);
         textView.setTextColor(Color.BLACK);
-        textView.setText(AsyncRunner.getPrettynames().get(pos) + "\n" + AsyncRunner.getDescriptions().get(pos) + "\nReceived This Week: " + AsyncRunner.getValues().get(pos));
+        textView.setText(AllMedalsRunner.getPrettynames().get(pos) + "\n" + AllMedalsRunner.getDescriptions().get(pos) + "\nReceived This Week: " + AllMedalsRunner.getValues().get(pos));
         textView.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.we_ran_out_of_medals, 0, 0);
         ImageView imageView = new ImageView(this);
         //imageView.setImageResource((TextView)gridview.getItemAtPosition(pos).get);

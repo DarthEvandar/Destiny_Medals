@@ -173,8 +173,8 @@ public class ParseMedalData {
                             CachedRunner.cMedals.add(tempo);
                             break;
                         case "master":
-                            AsyncRunner.values.add(line.split(":")[1]);
-                            AsyncRunner.medals.add(tempo);
+                            AllMedalsRunner.values.add(line.split(":")[1]);
+                            AllMedalsRunner.medals.add(tempo);
                             break;
                         case "weekly":
 

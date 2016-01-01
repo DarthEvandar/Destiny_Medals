@@ -8,13 +8,13 @@ import android.widget.GridView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-public class ImageAdapter extends BaseAdapter {
+public class AllMedalsAdapter extends BaseAdapter {
     private Context mContext;
     //public Integer[] picIds;
-    AsyncRunner async = new AsyncRunner();
+    AllMedalsRunner async = new AllMedalsRunner();
     ArrayList<String> medals = async.getMedals();
     ArrayList<String> values = async.getValues();
-    public ImageAdapter(Context c/*,Integer[]ids*/) {
+    public AllMedalsAdapter(Context c/*,Integer[]ids*/) {
        //picIds=ids;
         mContext = c;
     }

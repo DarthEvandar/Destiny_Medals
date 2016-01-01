@@ -1,11 +1,8 @@
 package com.apps.anders.destinymedals;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
@@ -21,15 +18,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -38,10 +31,10 @@ import com.google.gson.JsonParser;
 /**
  * Created by Anders on 9/13/2015.
  */
-public class AsyncRunner extends AsyncTask<String, String, String> {
+public class AllMedalsRunner extends AsyncTask<String, String, String> {
     Context aa;
     public AsyncResponse delegate=null;
-    public AsyncRunner(){}
+    public AllMedalsRunner(){}
     public static ArrayList<String> getMedals() {
         return medals;
     }
@@ -65,7 +58,7 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
      */
 
     public static ArrayList<String>prettynames = new ArrayList<String>();
-    public AsyncRunner (Context bb){
+    public AllMedalsRunner(Context bb){
         aa=bb;
     }
 
@@ -83,18 +76,18 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
     public void test()throws IOException,ParseException {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(aa);
         String gamertag = settings.getString("Gamertag","");
-        ArrayList<Pair> old = new ArrayList<Pair>();
-        ArrayList<Pair> newer = new ArrayList<Pair>();
+        ArrayList<MedalObject> old = new ArrayList<MedalObject>();
+        ArrayList<MedalObject> newer = new ArrayList<MedalObject>();
         BufferedReader oldread = null;
         //Read medals to establish a baseline, needs to be moved to work with a weekly baseline
         oldread = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath()+"/"+gamertag+"Medals.txt"));
         String line = null;
         line = oldread.readLine();
         while (line != null)
-        {  old.add(new Pair(line.split(":")[0],Integer.parseInt(line.split(":")[1])));
+        {  old.add(new MedalObject(line.split(":")[0],Integer.parseInt(line.split(":")[1])));
             line = oldread.readLine();
         }
-        for(Pair a:old){
+        for(MedalObject a:old){
             System.out.println(a.medal+" "+a.number);
         }
         oldread.close();
@@ -163,9 +156,9 @@ public class AsyncRunner extends AsyncTask<String, String, String> {
                 prettynames.add(title.split("- ")[0].trim());*/
                 out.println(MedalDictionary.dictionary_realnames.get(medal) + ":" + value);
                 System.out.println("Wrote: "+MedalDictionary.dictionary_realnames.get(medal) + ":" + value);
-                //Add grabbed medals to a new Pair array for later comparison
-                newer.add(new Pair(MedalDictionary.dictionary_realnames.get(medal), Integer.parseInt(value)));
-                Receive.getA().incrementProgressBy(1);
+                //Add grabbed medals to a new MedalObject array for later comparison
+                newer.add(new MedalObject(MedalDictionary.dictionary_realnames.get(medal), Integer.parseInt(value)));
+                AllMedals.getA().incrementProgressBy(1);
             }catch(ArrayIndexOutOfBoundsException ee){}
         }
         out.close();
