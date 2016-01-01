@@ -21,11 +21,11 @@ import java.io.IOException;
 
 public class AllMedals extends AppCompatActivity implements AsyncResponse{
     Toast myToast;
-    public static ProgressDialog getA() {
+    /*public static ProgressDialog getA() {
         return a;
-    }
+    }*/
     GridView gridview;
-    static ProgressDialog a;
+    //static ProgressDialog a;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +56,13 @@ public class AllMedals extends AppCompatActivity implements AsyncResponse{
         runner.delegate = this;
         runner.execute();
         //try {
-        a = new ProgressDialog(this);
+        /*a = new ProgressDialog(this);
         a.setTitle("Loading");
         a.setMessage("Parsing User Data");
         a.setProgressStyle(a.STYLE_HORIZONTAL);
         a.setProgress(0);
         a.setMax(102);
-        a.show();
+        a.show();*/
     }
 
     @Override
@@ -82,7 +82,7 @@ public class AllMedals extends AppCompatActivity implements AsyncResponse{
 
     @Override
     public void processFinish() {
-        a.dismiss();
+        //a.dismiss();
         gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new AllMedalsAdapter(this));
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

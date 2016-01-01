@@ -112,7 +112,7 @@ public class AllMedalsRunner extends AsyncTask<String, String, String> {
                 System.out.println("Wrote: "+MedalDictionary.dictionary_realnames.get(medal) + ":" + value);
                 //Add grabbed medals to a new MedalObject array for later comparison
                 newer.add(new MedalObject(MedalDictionary.dictionary_realnames.get(medal), Integer.parseInt(value)));
-                AllMedals.getA().incrementProgressBy(1);
+                //AllMedals.getA().incrementProgressBy(1);
             }catch(ArrayIndexOutOfBoundsException ee){}
         }
         out.close();
