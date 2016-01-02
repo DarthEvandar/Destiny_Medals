@@ -33,6 +33,8 @@ public class CachedRunner extends AsyncTask<String,String,String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
+            cMedals.clear();
+            cValues.clear();
             new ParseMedalData(cRunContext,"cached");
         } catch (IOException e) {
             e.printStackTrace();
