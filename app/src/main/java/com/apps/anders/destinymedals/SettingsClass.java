@@ -23,14 +23,7 @@ public class SettingsClass extends PreferenceActivity implements SharedPreferenc
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals("Gamertag")){
-            File medalFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+sharedPreferences.getString(key,"")+"Medals.txt");
-            File newMedalFile = new File(Environment.getExternalStorageDirectory().getPath()+"/"+sharedPreferences.getString(key,"")+"New.txt");
-            try {
-                medalFile.createNewFile();
-                newMedalFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new GenerateFiles(sharedPreferences.getString(key,""));
         }
     }
 }

@@ -11,4 +11,9 @@
         android:layout_height="wrap_content"
         android:text="Load Cached"
         android:onClick="sendCached"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Wekly"
+        android:onClick="sendWeekly"/>
 </LinearLayout>

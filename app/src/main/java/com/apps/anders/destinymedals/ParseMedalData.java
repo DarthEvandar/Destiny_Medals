@@ -151,7 +151,7 @@ public class ParseMedalData {
                     read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath() + "/" + gamertag + "Cached.txt"));
                     break;
                 case "weekly":
-
+                    read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getPath() + "/" + gamertag + "WeeklyCurrent.txt"));
                     break;
             }
             String line = read.readLine();
@@ -177,7 +177,8 @@ public class ParseMedalData {
                             AllMedalsRunner.medals.add(tempo);
                             break;
                         case "weekly":
-
+                            WeeklyRunner.wValues.add(line.split(":")[1]);
+                            WeeklyRunner.wMedals.add(tempo);
                             break;
                     }
 

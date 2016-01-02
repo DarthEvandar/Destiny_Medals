@@ -14,26 +14,26 @@ import java.util.ArrayList;
 /**
  * Created by Anders on 11/29/2015.
  */
-public class CachedRunner extends AsyncTask<String,String,String> {
+public class WeeklyRunner extends AsyncTask<String,String,String> {
     public AsyncResponse delegate=null;
-    public static ArrayList<String> cMedals = new ArrayList<String>();
-    public static ArrayList<String> cValues = new ArrayList<String>();
+    public static ArrayList<String> wMedals = new ArrayList<String>();
+    public static ArrayList<String> wValues = new ArrayList<String>();
     public static ArrayList<String> getMedals() {
-        return cMedals;
+        return wMedals;
     }
     public static ArrayList<String> getValues() {
-        return cValues;
+        return wValues;
     }
-    Context cRunContext;
-    public CachedRunner(){}
-    public CachedRunner(Context runContext){
-        cRunContext = runContext;
+    Context wRunContext;
+    public WeeklyRunner(){}
+    public WeeklyRunner(Context runContext){
+        wRunContext = runContext;
     }
 
     @Override
     protected String doInBackground(String... strings) {
         try {
-            new ParseMedalData(cRunContext,"cached");
+            new ParseMedalData(wRunContext,"weekly");
         } catch (IOException e) {
             e.printStackTrace();
         }
