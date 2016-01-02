@@ -45,7 +45,6 @@ public class AllMedalsRunner extends AsyncTask<String, String, String> {
     public static ArrayList<String>values= new ArrayList<String>();
     /*
     TODO
-    - TEST FILES
     - UI
     - Alarm
     - Maintain weekly but allow for refresh for current week
