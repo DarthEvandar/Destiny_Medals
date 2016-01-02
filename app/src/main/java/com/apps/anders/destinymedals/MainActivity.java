@@ -3,6 +3,7 @@ package com.apps.anders.destinymedals;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import org.json.simple.parser.ParseException;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
@@ -48,11 +57,27 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void send(View view){
+    public void send(View view)throws IOException,ParseException {
         Intent intent = new Intent(this, AllMedals.class);
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
         new GenerateFiles(message);
+        UpdateMedals update = new UpdateMedals();
+        Object[] raw_medals = update.getUpdate(message);
+        //Write new data to Medals.txt
+        FileWriter fileWriter= new FileWriter(Environment.getExternalStorageDirectory().getPath()+"/"+message+"WeeklyLast.txt");
+        PrintWriter out = new PrintWriter(new BufferedWriter(fileWriter));
+        for(int i=0;i<raw_medals.length;i++){
+            //Grab medal from JSON
+            String medal = ((Map)raw_medals[i]).values().toArray()[0].toString().substring(6);
+            try {
+                //Value grab
+                String value = ((Map) ((Map) raw_medals[i]).values().toArray()[3]).values().toArray()[0].toString();
+                out.println(MedalDictionary.dictionary_realnames.get(medal) + ":" + value);
+                System.out.println("Wrote: "+MedalDictionary.dictionary_realnames.get(medal) + ":" + value);
+            }catch(ArrayIndexOutOfBoundsException ee){}
+        }
+        out.close();
         intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra(E2,"new");
         startActivity(intent);
