@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View All"
-        android:onClick="sendOld"/>
+        android:text="@string/send_all"
+        android:onClick="sendOld" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Load Cached"
-        android:onClick="sendCached"/>
+        android:text="@string/send_cached"
+        android:onClick="sendCached" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Load Wekly"
-        android:onClick="sendWeekly"/>
+        android:text="@string/send_weekly"
+        android:onClick="sendWeekly" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_generate"
+        android:onClick="sendGenerate"
+        android:capitalize="none" />
+
 </LinearLayout>

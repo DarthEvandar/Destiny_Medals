@@ -71,4 +71,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, WeeklyMedals.class);
         startActivity(intent);
     }
+    public void sendGenerate(View view){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        String gamertag = settings.getString("Gamertag", "");
+        new GenerateFiles(gamertag);
+    }
 }

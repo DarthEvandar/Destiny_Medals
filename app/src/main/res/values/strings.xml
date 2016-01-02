@@ -8,5 +8,9 @@
     <string name="title_activity_receive">Receive</string>
     <string name="gtag">Enter a Gamertag</string>
     <string name="hello_world">Hello world!</string>
+    <string name="send_cached">View Cached</string>
+    <string name="send_all">View All Medals</string>
+    <string name="send_weekly">View Weekly</string>
+    <string name="send_generate">Generate User Files</string>
     <string name="title_activity_settings_class">Settings</string>
 </resources>
